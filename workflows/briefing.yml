@@ -1,0 +1,33 @@
+name: Morning Market Briefing
+
+on:
+  schedule:
+    # 07:50 CET = 06:50 UTC (winter) / 05:50 UTC (summer)
+    # Using 06:50 UTC — covers CET (UTC+1). Adjust to 05:50 in summer (CEST/UTC+2)
+    - cron: "50 6 * * 1-5"   # Mon–Fri only
+
+  workflow_dispatch:           # Manual trigger for testing
+
+jobs:
+  send-briefing:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run briefing script
+        env:
+          ANTHROPIC_API_KEY:   ${{ secrets.ANTHROPIC_API_KEY }}
+          PERPLEXITY_API_KEY:  ${{ secrets.PERPLEXITY_API_KEY }}
+          GMAIL_ADDRESS:       ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD:  ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python briefing.py
