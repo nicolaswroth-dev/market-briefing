@@ -1,5 +1,5 @@
 """
-Morning Market Briefing — Nicolas Roth
+Morning Market Briefing — Nicolas Roth 
 Watchlist: TPG US, ECO US, ALPHA.AT, TRMD, FRO, DOV.MI, INTRUM.ST, TEN
 Runs daily at 07:50 CET via GitHub Actions
 Stack: yfinance (prices) + Perplexity API (news) + Claude API (synthesis) + Gmail SMTP (delivery)
